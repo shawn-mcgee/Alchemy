@@ -11,20 +11,14 @@
   const __3js__scene    = new __3JS__.Scene()
   const __3js__geometry = new __3JS__.BoxGeometry( 1, 1, 1 );
   const __3js__material = new __3JS__.MeshBasicMaterial( { color: 0x00ff00 } );
-  const __3js__cube = new __3JS__.Mesh( __3js__geometry, __3js__material );
+  const __3js__cube     = new __3JS__.Mesh( __3js__geometry, __3js__material );
   __3js__scene.add( __3js__cube );
 
 
   onMount(async () => {
-    // position canvas
-    canvas.style.position = "absolute"
-    canvas.style.top      =   "0px"
-    canvas.style.left     =   "0px"
-    canvas.style.width    = "100vw"
-    canvas.style.height   = "100vh"
-    canvas.style.backgroundColor = "#000"
-
-    new ResizeObserver(() => onResize()).observe(canvas)
+    window.addEventListener("resize", () => onResize())
+    canvas.width  = window.innerWidth
+    canvas.height = window.innerHeight
 
     // init three
     __3js__renderer = new __3JS__.WebGLRenderer({ canvas })
@@ -37,11 +31,12 @@
   })
 
   function onResize() {
-    canvas.width  = canvas.getBoundingClientRect().width
-    canvas.height = canvas.getBoundingClientRect().height
+    canvas.width  = window.innerWidth
+    canvas.height = window.innerHeight
     __3js__renderer.setSize(canvas.width, canvas.height)
 
     __3js__camera.aspect = canvas.width / canvas.height
+    // __3js__camera.updateMatrix()
     __3js__camera.updateProjectionMatrix()
   }
 
@@ -66,3 +61,15 @@
 </script>
 
 <canvas bind:this={canvas}></canvas>
+
+<style>
+  canvas {
+    position: absolute;
+    top   :   0px;
+    left  :   0px;
+    width : 100vw;
+    height: 100vh;
+
+    background-color: black;
+  }
+</style>
