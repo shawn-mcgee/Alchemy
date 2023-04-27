@@ -2,8 +2,10 @@
   import { onMount } from "svelte";
   import * as __3JS__ from "three";
 
-  let canvas: HTMLCanvasElement
+  import vs from "./alchemy/asset/picking.vs"
+  import fs from "./alchemy/asset/picking.fs"
 
+  let canvas: HTMLCanvasElement
 
   let __3js__renderer: __3JS__.WebGLRenderer
   let __3js__camera  : __3JS__.PerspectiveCamera
@@ -14,11 +16,17 @@
   const __3js__cube     = new __3JS__.Mesh( __3js__geometry, __3js__material );
   __3js__scene.add( __3js__cube );
 
+  let vertexShader: string
+  let fragmentShader: string
+  let pickingMaterial: __3JS__.ShaderMaterial
 
   onMount(async () => {
     window.addEventListener("resize", () => onResize())
     canvas.width  = window.innerWidth
     canvas.height = window.innerHeight
+
+    vertexShader   = await fetch(vs).then(result => result.text())
+    fragmentShader = await fetch(fs).then(result => result.text())
 
     // init three
     __3js__renderer = new __3JS__.WebGLRenderer({ canvas })
