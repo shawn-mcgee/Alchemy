@@ -1,5 +1,7 @@
 ---
 import "./src/styles/global.css"
+
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -7,20 +9,13 @@ import "./src/styles/global.css"
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
+
+    <ClientRouter/>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
