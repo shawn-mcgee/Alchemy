@@ -1,21 +1,21 @@
 import type { P2PRequest } from "./p2p-request";
 
-import Alchemy    from "../alchemy";
-import Version    from "../version";
+import Alchemy from "../alchemy";
+import Version from "../version";
+import P2PSecret  from "./p2p-secret";
 import P2PMessage from "./p2p-message";
 
 import * as Trystero from "trystero";
-import P2PMagic from "./p2p-magic";
 
 export interface P2PSession {
-  readonly magic: string;
-  readonly id   : string;
-  readonly pw   : string;
-  readonly is   : "server" | "client";
+  readonly secret: string;
+  readonly id    : string;
+  readonly pw    : string;
+  readonly is    : "server" | "client";
 
-  readonly host ?:     string ;
-  readonly self  :     string ;
-  readonly peers : Set<string>;
+  readonly hostId ?:     string ;
+  readonly selfId  :     string ;
+  readonly peerIds : Set<string>;
 
   readonly requests: Map<string, P2PRequest>;
 
@@ -27,10 +27,10 @@ export interface P2PSession {
 export namespace P2PSession {
   const appId = Version.toString(Alchemy.VERSION);
   
-  export function host(m: string | [string, string]) {
-    const magic  = P2PMagic.mend(m           );
-    const id     = P2PMagic.id  (magic, false);
-    const pw     = P2PMagic.pw  (magic, false);
+  export function host(s: string | [string, string]) {
+    const secret  = P2PSecret.mend(s            );
+    const id      = P2PSecret.id  (secret, false);
+    const pw      = P2PSecret.pw  (secret, false);
 
     // trystero
     const _trystero_room = Trystero.joinRoom({appId, password: pw}, id);
@@ -69,26 +69,26 @@ export namespace P2PSession {
   }
 
   export       function message(sesh: P2PSession, to: string, type: string, data: any, resId ?: string) {
-    const message: P2PMessage = { from: sesh.self, to, type, data, resId,                    };
+    const message: P2PMessage = { from: sesh.selfId, to, type, data, resId,                    };
     if (sesh.is === "server") sesh._trystero_tx(message,              to);
-    else                      sesh._trystero_tx(message, sesh.host ?? to);
+    else                      sesh._trystero_tx(message, sesh.hostId ?? to);
   }
 
   export async function request(sesh: P2PSession, to: string, type: string, data: any, resId ?: string) {
-    const message: P2PMessage = { from: sesh.self, to, type, data, resId, reqId: reqId(sesh) };
+    const message: P2PMessage = { from: sesh.selfId, to, type, data, resId, reqId: reqId(sesh) };
     return new Promise((resolve, reject) => {
       sesh.requests.set(message.reqId!, { to, resolve, reject });
       if (sesh.is === "server") sesh._trystero_tx(message,              to);
-      else                      sesh._trystero_tx(message, sesh.host ?? to);
+      else                      sesh._trystero_tx(message, sesh.hostId ?? to);
     })
   }
 
   function inclusive(sesh: P2PSession, ids: Array<string>) {
-    return Array.from(sesh.peers).filter(id =>  ids.includes(id));
+    return Array.from(sesh.peerIds).filter(id =>  ids.includes(id));
   }
 
   function exclusive(sesh: P2PSession, ids: Array<string>) {
-    return Array.from(sesh.peers).filter(id => !ids.includes(id));
+    return Array.from(sesh.peerIds).filter(id => !ids.includes(id));
   }
 
   export function broadcastInclusive(sesh: P2PSession, ids: Array<string>, type: string, data: any) {
