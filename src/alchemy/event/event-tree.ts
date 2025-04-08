@@ -65,20 +65,57 @@ export namespace EventTree {
     return tree.pending.splice(0, tree.pending.length);
   }
 
-  function onListen  (tree: EventTree, a: Listen) {
+  function onListen  (tree: EventTree, a: Listen  ) {
     requireListeners(tree, a.path, a.type).add(a.listener);
   }
 
-  function onDeafen  (tree: EventTree, a: Deafen) {
-    
+  function onDeafen  (tree: EventTree, a: Deafen  ) {
+           if(a.type !== undefined && a.listener !== undefined) {
+      requestListeners(tree, a.path, a.type)?.delete(a.listener);
+    } else if(a.type !== undefined && a.listener === undefined) {
+      requestListeners(tree, a.path, a.type)?.clear();
+    } else if(a.type === undefined && a.listener !== undefined) {
+      requestNode(tree, a.path)?.listeners.forEach(
+        listeners => listeners.delete(a.listener!)
+      )
+    } else if(a.type === undefined && a.listener === undefined) {
+      const node = requestNode(tree, a.path)
+      if(node) {
+        node.listeners.clear()
+        node.children .clear()
+      }
+    }
   }
 
   function onDispatch(tree: EventTree, a: Dispatch) {
-    
+    const node = requestNode(tree, a.path);
+    if(node) onDispatchRecursive(tree, node, a.path, a.type, a.event);
+  }
+
+  function onDispatchRecursive(tree: EventTree, node: EventNode, path: string, type: string, event: any) {
+    EventNode.requestListeners(node, type)?.forEach(
+      self => self(event, { tree, path, type, self})
+    )
+
+    node.children.forEach((child, name) => {
+      onDispatchRecursive(tree, child, `${path}/${name}`, type, event);
+    })
+  }
+
+  function requestNode(tree: EventTree, path: string) {
+    return EventNode.requestNode(tree.root, path);
+  }
+
+  function requireNode(tree: EventTree, path: string) {
+    return EventNode.requireNode(tree.root, path);
+  }
+
+  function requestListeners(tree: EventTree, path: string, type: string) {
+    return EventNode.requestListeners(EventNode.requestNode(tree.root, path), type);
   }
 
   function requireListeners(tree: EventTree, path: string, type: string) {
-    return EventNode.requireListeners(EventNode.requireNode(tree.root, path) , type);
+    return EventNode.requireListeners(EventNode.requireNode(tree.root, path), type);
   }
 }
 

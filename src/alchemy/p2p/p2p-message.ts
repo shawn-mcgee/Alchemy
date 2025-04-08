@@ -1,5 +1,8 @@
 export interface P2PMessage {
+  to  : string;
+  from: string;
   type: string;
+  data: any;
 
   reqId ?: string;
   resId ?: string;

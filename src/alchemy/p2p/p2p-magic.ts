@@ -1,6 +1,6 @@
 import { sampleSize } from "lodash";
 
-export namespace P2PSecret {
+export namespace P2PMagic {
   export const RUNES = "abcdefghijklmnopqrstuvwxyz0123456789";
 
   export function random(n=6, m=6) {
@@ -26,8 +26,8 @@ export namespace P2PSecret {
       [id, pw] = s;
 
     if (scrub) return [
-      P2PSecret.scrub(id), 
-      P2PSecret.scrub(pw)
+      P2PMagic.scrub(id), 
+      P2PMagic.scrub(pw)
     ] as const;
     else return [id, pw] as const;
   }
@@ -40,7 +40,7 @@ export namespace P2PSecret {
     } else
       [id, pw] = s;
 
-    if (scrub) return P2PSecret.scrub(`${id}?${pw}`);
+    if (scrub) return P2PMagic.scrub(`${id}?${pw}`);
     else       return              `${id}?${pw}` ;
   }
   
@@ -49,4 +49,4 @@ export namespace P2PSecret {
   }
 }
 
-export default P2PSecret;
+export default P2PMagic;

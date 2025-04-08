@@ -13,14 +13,14 @@ export interface EventNode {
 }
 
 export namespace EventNode {
-  export function requestListeners(node: EventNode, type: string) {
-    let listeners = node.listeners.get(type);
+  export function requestListeners(node: EventNode | undefined, type: string) {
+    let listeners = node?.listeners.get(type);
     // if (!listeners)
     //   node.listeners.set(type, listeners = new Set());
     return listeners;
   }
 
-  export function requireListeners(node: EventNode, type: string) {
+  export function requireListeners(node: EventNode            , type: string) {
     let listeners = node.listeners.get(type);
     if (!listeners) node.listeners.set(type, 
       listeners = new Set()
@@ -28,7 +28,7 @@ export namespace EventNode {
     return listeners;
   }
 
-  export function requireNode(node: EventNode, path: string) {
+  export function requireNode(node: EventNode            , path: string) {
     for(let part of path.split("/")) {
       let child = node.children.get(part);
       if (!child) node.children.set(part, 
@@ -39,9 +39,9 @@ export namespace EventNode {
     return node;
   }
 
-  export function requestNode(node: EventNode, path: string) {
+  export function requestNode(node: EventNode | undefined, path: string) {
     for(let part of path.split("/")) {
-      let child = node.children.get(part);
+      let child = node?.children.get(part);
       if (!child) return;
       node = child;
     }
