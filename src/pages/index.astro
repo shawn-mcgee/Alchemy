@@ -1,10 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Alchemy from "../alchemy/alchemy";
+
+const version = `${Alchemy.VERSION.major}.${Alchemy.VERSION.minor}.${Alchemy.VERSION.patch}`;
 ---
 
 <Layout>
   <div class="w-dvw h-dvh flex flex-col items-center justify-center">
     <img src="/favicon.png" class="w-32 pl-4">
     <span class="text-6xl">Alchemy</span>
+  </div>
+
+  <div class="absolute bottom-4 left-4">
+    <span class="badge badge-accent text-xl font-mono">{ version }</span>
   </div>
 </Layout>
