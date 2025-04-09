@@ -6,6 +6,7 @@ import P2PSecret  from "./p2p-secret";
 import P2PMessage from "./p2p-message";
 
 import * as Trystero from "trystero";
+import type { P2PListener } from "./p2p-listener";
 
 export interface P2PSession {
   readonly secret: string;
@@ -26,6 +27,11 @@ export interface P2PSession {
 
 export namespace P2PSession {
   const appId = Version.toString(Alchemy.VERSION);
+
+
+  export const P2P_PEER_ATTACHED = "__p2p_peer_attached__";
+  export const P2P_PEER_DETACHED = "__p2p_peer_detached__";
+
   
   export function host(s: string | [string, string]) {
     const secret  = P2PSecret.mend(s            );
@@ -83,26 +89,25 @@ export namespace P2PSession {
     })
   }
 
-  function inclusive(sesh: P2PSession, ids: Array<string>) {
-    return Array.from(sesh.peerIds).filter(id =>  ids.includes(id));
-  }
-
-  function exclusive(sesh: P2PSession, ids: Array<string>) {
-    return Array.from(sesh.peerIds).filter(id => !ids.includes(id));
-  }
-
   export function broadcastInclusive(sesh: P2PSession, ids: Array<string>, type: string, data: any) {
-    inclusive(sesh, ids).forEach(id => message(sesh, id, type, data));
+    Array.from(sesh.peerIds)
+      .filter (id =>  ids.includes(id))
+      .forEach(id => message(sesh, id, type, data));
   }
 
   export function broadcastExclusive(sesh: P2PSession, ids: Array<string>, type: string, data: any) {
-    exclusive(sesh, ids).forEach(id => message(sesh, id, type, data));
+    Array.from(sesh.peerIds)
+      .filter (id => !ids.includes(id))
+      .forEach(id => message(sesh, id, type, data));
   }
 
-  export function on(sesh: P2PSession, type: string, ) {
+  export function listen(sesh: P2PSession, type: string, listener: P2PListener) {
 
   }
 
+  export function deafen(sesh: P2PSession, type: string, listener: P2PListener) {
+
+  }
 }
 
 export default P2PSession;
