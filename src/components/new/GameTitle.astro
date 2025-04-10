@@ -1,0 +1,34 @@
+---
+import { Dices, Info } from "@lucide/astro";
+import words from "../../../public/words.json";
+
+import _ from "lodash";
+const { sample }  =  _;
+
+const gameTitle       = ("The "
+  + sample(words.adjective.other)
+  + " "
+  + sample(words.noun     .place)
+)
+---
+
+<div class="flex flex-row items-center">          
+  <span contenteditable class="input input-ghost text-xl h-fit">
+    { gameTitle }
+  </span>
+  
+  <div class="w-1"/>
+
+  <div class="tooltip" data-tip="The title of the game as seen by all players.">
+    <a class="btn btn-ghost btn-circle btn-xs">
+      <Info width="1rem"/>
+    </a>
+  </div>
+
+  <div class="tooltip" data-tip="Click to reroll the title.">
+    <a class="btn btn-ghost btn-circle btn-xs">
+      <Dices width="1rem"/>
+    </a>
+  </div>
+
+</div>

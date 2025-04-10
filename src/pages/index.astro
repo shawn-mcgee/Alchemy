@@ -1,17 +1,34 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Alchemy from "../alchemy/alchemy";
-
-const version = `${Alchemy.VERSION.major}.${Alchemy.VERSION.minor}.${Alchemy.VERSION.patch}`;
+import Page from "../layouts/Page.astro";
+import Version from "../components/Version.astro";
+import { FolderPlus, FolderOpen, Users } from "@lucide/astro";
 ---
 
-<Layout>
-  <div class="w-dvw h-dvh flex flex-col items-center justify-center">
-    <img src="/favicon.png" class="w-32 pl-4">
-    <span class="text-6xl">Alchemy</span>
-  </div>
+<Page>
+  <div class="absolute w-dvw h-dvh flex flex-col justify-center items-center gap-2">
+    <span class="text-3xl font-bold">Alchemy</span>
 
-  <div class="absolute bottom-4 left-4">
-    <span class="badge badge-accent text-xl font-mono">{ version }</span>
+    <div class="tooltip tooltip-right w-36" data-tip="Create a name game.">
+      <a href="/new" class="flex flex-row btn btn-primary">
+        <FolderPlus/>
+        <span>New Game</span>
+      </a>
+    </div>
+
+    <div class="tooltip tooltip-right w-36" data-tip="Load a saved game.">
+      <a href="/load" class="flex flex-row btn btn-primary">
+        <FolderOpen/>
+        <span>Load Game</span>
+      </a>
+    </div>
+
+    <div class="tooltip tooltip-right w-36" data-tip="Join an online game.">
+      <a href="/join" class="flex flex-row btn btn-primary">
+        <Users/>
+        <span>Join Game</span>
+      </a>
+    </div>
+
+    <Version/>
   </div>
-</Layout>
+</Page>

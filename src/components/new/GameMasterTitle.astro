@@ -1,0 +1,36 @@
+---
+
+import { Dices, Info } from "@lucide/astro";
+
+import words from "../../../public/words.json";
+
+import _ from "lodash";
+const { sample }  =  _;
+
+const gmTitle       = ("The "
+  + sample(words.adjective  .gm)
+  + " "
+  + sample(words.noun.person.gm)
+)
+---
+
+<div class="flex flex-row items-center">
+      
+  <div contenteditable class="input input-ghost h-fit text-xl">
+    { gmTitle }
+  </div>
+
+  <div class="w-2"/>
+  
+  <div class="tooltip" data-tip="The title of the Game Master as seen by all players.">
+    <a class="btn btn-ghost btn-circle btn-xs">
+      <Info width="1rem"/>
+    </a>
+  </div>
+
+  <div class="tooltip" data-tip="Click to reroll the title.">
+    <a class="btn btn-ghost btn-circle btn-xs">
+      <Dices width="1rem"/>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+---
+import _Version from "../alchemy/version";
+import _Alchemy from "../alchemy/alchemy";
+
+const version = _Version.toString(_Alchemy.VERSION);
+---
+
+<div class="absolute bottom-4 left-4">
+  <span class="badge badge-primary text-xl font-mono">{ version }</span>
+</div>

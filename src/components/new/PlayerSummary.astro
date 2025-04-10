@@ -1,0 +1,27 @@
+---
+import { X, User } from "@lucide/astro";
+import PlayerTitle       from "./PlayerTitle.astro";
+import PlayerDescription from "./PlayerDescription.astro";
+---
+
+<div class="flex flex-row items-center p-2 rounded-box hover:bg-base-300">
+  <div class="aspect-square rounded-full p-2 bg-secondary text-secondary-content">
+    <User/>
+  </div>
+
+  <div class="w-2"/>
+
+  <div class="w-full flex flex-col">
+    <PlayerTitle/>
+    <PlayerDescription/>
+  </div>
+
+  <!-- <div class="w-2"/> -->
+
+  <div class="tooltip" data-tip="Remove this player.">
+    <a class="btn btn-xs btn-ghost btn-circle">
+      <X/>
+    </a>
+  </div>
+
+</div>
