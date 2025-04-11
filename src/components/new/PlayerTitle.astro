@@ -7,11 +7,16 @@ import words from "../../../public/words.json";
 import _ from "lodash";
 const { sample }  =  _;
 
-const playerTitle       = (""
+let playerTitle       = (""
   + sample(words.adjective  .other )
   + " "
   + sample(words.noun.person.player)
 )
+
+if (playerTitle.match(/^[aeiouAEIOU]/))
+  playerTitle = "An " + playerTitle;
+else
+  playerTitle = "A " + playerTitle;
 ---
 
 <div class="flex flex-row items-center">
@@ -19,18 +24,5 @@ const playerTitle       = (""
   <div contenteditable class="input input-ghost h-fit text-xl">
     { playerTitle }
   </div>
-
-  <div class="w-2"/>
   
-  <div class="tooltip" data-tip="The title of this Player as seen by all players.">
-    <a class="btn btn-ghost btn-circle btn-xs">
-      <Info width="1rem"/>
-    </a>
-  </div>
-
-  <div class="tooltip" data-tip="Click to reroll the title.">
-    <a class="btn btn-ghost btn-circle btn-xs">
-      <Dices width="1rem"/>
-    </a>
-  </div>
 </div>

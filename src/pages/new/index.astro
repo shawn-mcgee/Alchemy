@@ -3,30 +3,40 @@ import Page from "../../layouts/Page.astro";
 
 import GameSummary from "../../components/new/GameSummary.astro";
 import Players     from "../../components/new/Players.astro";
+import { ArrowBigRight, Ban, CircleHelp, FlameKindling, Hexagon, Scroll, Sparkles, Square, Star, UserPlus, Users, UsersRound } from "@lucide/astro";
 ---
 
 <Page>
   <div class="absolute w-dvw h-dvh flex flex-col justify-center items-center gap-2">
     
-
-    <div class="flex flex-row bg-base-200 rounded-box p-4">
+    <div class="flex flex-col items-center rounded-box p-4 shadow-lg">
 
       <div class="flex flex-col w-98">
-        <span class="text-center text-xl font-bold">
-          New Game
-        </span>
+        <div class="flex flex-row justify-center items-center gap-2">
+          <FlameKindling/>
+          <span class="text-center text-xl font-bold">
+            New Campaign
+          </span>
+        </div>
         <GameSummary/>
-      </div>      
-
-      <div class="flex flex-col w-98">
-        <span class="text-xl text-center font-bold">
-          Who is Playing?
-        </span>
-        <Players/>
       </div>
 
+      <div class="h-4"/>
+      
+      <div class="flex flex-col w-98">
+        <div class="flex flex-row justify-center items-center gap-2">
+          <UserPlus/>
+          <span class="text-xl text-center font-bold">
+            Who is Playing?
+          </span>
+        </div>
+        <Players/>
+      </div>
+      <div class="h-4"/>
+      <a class="btn btn-primary btn-wide">
+        <span class="text-xl">Embark</span>
+        <ArrowBigRight/>
+      </a>
     </div>
-
-
   </div>
 </Page>

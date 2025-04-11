@@ -1,8 +1,22 @@
 ---
 import GameTitle       from "./GameTitle.astro";
 import GameDescription from "./GameDescription.astro";
+import { Dices } from "@lucide/astro";
 ---
 
 
-<GameTitle      />
-<GameDescription/>
+<div class="w-full flex flex-row items-center hover:bg-base-200 p-2 rounded-box">
+  
+  <div class="grow flex flex-col">
+    <GameTitle      />
+    <GameDescription/>
+  </div>
+  
+  <div class="w-2"/>
+
+  <div class="tooltip" data-tip="Reroll the Game's title and description.">
+    <a class="btn btn-xs btn-ghost btn-circle">
+      <Dices/>
+    </a>
+  </div>
+</div>

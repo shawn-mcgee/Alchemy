@@ -1,19 +1,27 @@
 ---
-import { Crown } from "@lucide/astro";
+import { Crown, Dices } from "@lucide/astro";
 import GameMasterTitle from "./GameMasterTitle.astro";
 import GameMasterDescription from "./GameMasterDescription.astro";
 ---
 
-<div class="flex flex-row items-center p-2 rounded-box hover:bg-base-300">
+<div class="flex flex-row items-center p-2 rounded-box hover:bg-base-200">
   <div class="aspect-square rounded-full p-2 bg-primary text-primary-content">
     <Crown/>
   </div>
 
   <div class="w-2"/>
 
-  <div class="flex flex-col">
+  <div class="w-full flex flex-col">
     <GameMasterTitle/>
     <GameMasterDescription/>
+  </div>
+
+  <div class="w-2"/>
+
+  <div class="tooltip" data-tip="Reroll the Game Master's title and description.">
+    <a class="btn btn-xs btn-ghost btn-circle">
+      <Dices/>
+    </a>
   </div>
 
 </div>

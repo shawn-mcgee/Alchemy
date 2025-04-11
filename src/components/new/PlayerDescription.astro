@@ -10,22 +10,9 @@ const playerDescription = sample(words.describe.person);
 ---
 
 <div class="flex flex-row items-center">
-
+  
   <div contenteditable class="input input-ghost h-fit text-wrap italic">
     { playerDescription }
   </div>
 
-  <div class="w-1"/>
-
-  <div class="tooltip" data-tip="The description of this Player as seen by all players.">
-    <a class="btn btn-ghost btn-circle btn-xs">
-      <Info width="1rem"/>
-    </a>
-  </div>
-
-  <div class="tooltip" data-tip="Click to reroll the description.">
-    <a class="btn btn-ghost btn-circle btn-xs">
-      <Dices width="1rem"/>
-    </a>
-  </div>
 </div>

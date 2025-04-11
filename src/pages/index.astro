@@ -1,32 +1,36 @@
 ---
 import Page from "../layouts/Page.astro";
 import Version from "../components/Version.astro";
-import { FolderPlus, FolderOpen, Users } from "@lucide/astro";
+import { FolderPlus, FolderOpen, Users, FlameKindling, WandSparkles, Swords, BookOpen, BookUp, Book, LibraryBig, FlaskConical } from "@lucide/astro";
 ---
 
 <Page>
-  <div class="absolute w-dvw h-dvh flex flex-col justify-center items-center gap-2">
-    <span class="text-3xl font-bold">Alchemy</span>
+  <div class="absolute w-dvw h-dvh flex flex-col justify-center items-center">
 
-    <div class="tooltip tooltip-right w-36" data-tip="Create a name game.">
-      <a href="/new" class="flex flex-row btn btn-primary">
-        <FolderPlus/>
-        <span>New Game</span>
-      </a>
-    </div>
+    <div class="flex flex-col w-52 items-center gap-1">
 
-    <div class="tooltip tooltip-right w-36" data-tip="Load a saved game.">
-      <a href="/load" class="flex flex-row btn btn-primary">
-        <FolderOpen/>
-        <span>Load Game</span>
-      </a>
-    </div>
+      <div class="flex flex-row justify-center items-center gap-2">
+        <FlaskConical/>
+        <span class="text-3xl font-bold">
+          Alchemy
+        </span>
+      </div>
 
-    <div class="tooltip tooltip-right w-36" data-tip="Join an online game.">
-      <a href="/join" class="flex flex-row btn btn-primary">
-        <Users/>
-        <span>Join Game</span>
+      <a href="/new" class="btn btn-primary btn-block">
+        <FlameKindling/>
+        <span class="flex-1">New Campaign</span>
       </a>
+
+      <a href="/load" class="btn btn-primary btn-block">
+        <LibraryBig/>
+        <span class="flex-1">Load Campaign</span>
+      </a>
+
+      <a href="/join" class="btn btn-primary btn-block">
+        <Swords/>
+        <span class="flex-1">Join Campaign</span>
+      </a>
+
     </div>
 
     <Version/>

@@ -1,0 +1,27 @@
+---
+import { Ban, Hexagon, Square } from "@lucide/astro";
+---
+
+<div class="join flex flex-row justify-center items-center">
+  <div class="tooltip" data-tip="Don't use a grid when creating new scenes. Can be changed later.">
+    <label class="join-item w-20 flex flex-col justify-center items-center aspect-square hover:bg-base-300 has-checked:bg-primary has-checked:text-primary-content p-2">
+      <input type="radio" name="grid" class="hidden"/>
+      <Ban/>
+      <span>None</span>
+    </label>
+  </div>
+  <div class="tooltip" data-tip="Use a square grid when creating new scenes. Can be changed later.">
+    <label class="join-item w-20 flex flex-col justify-center items-center aspect-square hover:bg-base-300 has-checked:bg-primary has-checked:text-primary-content p-2">
+      <input type="radio" name="grid" class="hidden"/>
+      <Square/>
+      <span>Square</span>
+    </label>
+  </div>
+  <div class="tooltip" data-tip="Use a hexagon grid when creating new scenes. Can be changed later.">
+    <label class="join-item w-20 flex flex-col justify-center items-center aspect-square hover:bg-base-300 has-checked:bg-primary has-checked:text-primary-content p-2">
+      <input type="radio" name="grid" class="hidden"/>
+      <Hexagon/>
+      <span>Hexagon</span>
+    </label>
+  </div>
+</div>
